@@ -73,15 +73,18 @@
 								err("no if parameter or wrong if parameter");
 							}
 							if (iframeType == "no") {
-								document.write("<script src=\"https://adtag.padsquad.com/AdOps_GetIntent/" + tagType + ".js?pid=" + tagId + "\" />");	
+								document.write("<script src=\"https://adtag.padsquad.com/AdOps_GetIntent/" + tagType + ".js?pid=" + tagId + "\">");
+								document.write("</" + "script>");
 							} else if (iframeType == "friendly") {
 								var fullURL = $(location).attr('href');
 								var url = fullURL.substring(0, fullURL.indexOf("?")).replace("page.html", "iframe.html") + "?tagId=" + tagId + "&tagType=" + tagType;
 								document.write("<iframe class='adFrame' src='" + url +"''>");		
+								document.write("</" + "iframe>");
 							} else if (iframeType == "safe") {
 								var fullURL = $(location).attr('href');
 								var url = fullURL.substring(0, fullURL.indexOf("?")).replace("getintent.com", "adhigh.net").replace("page.html", "iframe.html") + "?tagId=" + tagId + "&tagType=" + tagType;
 								document.write("<iframe class='adFrame' src='" + url +"''>");		
+								document.write("</" + "iframe>");
 							}
 						})();							
 						</script>
