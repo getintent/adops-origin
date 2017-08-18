@@ -54,7 +54,9 @@
 					err("no if parameter or wrong if parameter");
 				}
 				if (iframeType == "no") {
-					$("#ad").get(0).innerHTML  ="<script src=\"https://adtag.padsquad.com/AdOps_GetIntent/" + tagType + ".js?pid=11823453\" />";		
+					// $("#ad").get(0).innerHTML ="<script src=\"https://adtag.padsquad.com/AdOps_GetIntent/" + tagType + ".js?pid=11823453\" />";		
+					$("#ad").html("<script src=\"https://adtag.padsquad.com/AdOps_GetIntent/" + tagType + ".js?pid=11823453\" />");		
+
 				} else if (iframeType == "friendly") {
 					err('No support for friendly iframe so far');
 				} else if (iframeType == "safe") {
