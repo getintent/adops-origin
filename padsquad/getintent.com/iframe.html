@@ -30,9 +30,14 @@
 				var tagId = $.urlParam("tagId");
 				if (!tagId) {
 					err("no tagId");
-				} else {
-					$("#body").html("<script src=\"https://adtag.padsquad.com/AdOps_GetIntent/headliner.js?pid=11823453\" />");		
+					return;
 				}
+				var tagType = $.urlParam("tagType");
+				if (!tagId) {
+					err("no tagType");
+					return;
+				}
+				$("#body").html("<script src=\"https://adtag.padsquad.com/AdOps_GetIntent/" + tagType + ".js?pid=" + tagId + "\" />");	
 			});
 		</script>
 	</head>
