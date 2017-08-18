@@ -12,7 +12,7 @@
 			}
 		</style>
 		<script type="text/javascript">
-			$.urlParam = function(name){
+			 function urlParam(name){
 			    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
 			    if (results==null){
 			       return null;
@@ -23,10 +23,10 @@
 			}
 
 			function err(message) {
-				$("#body").append("<h2>ERROR: " + message + "</h2>");	
+				document.write("<h2>ERROR: " + message + "</h2>");	
 			}
+			function render() {
 
-			$(document).ready(function() {
 				var tagId = $.urlParam("tagId");
 				if (!tagId) {
 					err("no tagId");
@@ -37,11 +37,13 @@
 					err("no tagType");
 					return;
 				}
-				$("#body").html("<script src=\"https://adtag.padsquad.com/AdOps_GetIntent/" + tagType + ".js?pid=" + tagId + "\" />");	
-			});
+				document.write("<script src=\"https://adtag.padsquad.com/AdOps_GetIntent/" + tagType + ".js?pid=" + tagId + "\" />");	
+			}
 		</script>
 	</head>
 	<body id="body">
-
+		<script type="text/javascript">
+			render();
+		</script>
 	</body>
 </html>
