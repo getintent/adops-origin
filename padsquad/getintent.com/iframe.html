@@ -27,17 +27,18 @@
 			}
 			function render() {
 
-				var tagId = $.urlParam("tagId");
+				var tagId = urlParam("tagId");
 				if (!tagId) {
 					err("no tagId");
 					return;
 				}
-				var tagType = $.urlParam("tagType");
+				var tagType = urlParam("tagType");
 				if (!tagId) {
 					err("no tagType");
 					return;
 				}
-				document.write("<script src=\"https://adtag.padsquad.com/AdOps_GetIntent/" + tagType + ".js?pid=" + tagId + "\" />");	
+				document.write("<script src=\"https://adtag.padsquad.com/AdOps_GetIntent/" + tagType + ".js?pid=" + tagId + "\" />");
+				document.write("</" + "script>");	
 			}
 		</script>
 	</head>
