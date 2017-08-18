@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+		  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="		sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<style type="text/css">
+			.adFrame {
+				width: 350px;
+				height: 300px;
+				border: 0;
+				padding: 0;
+				margin: 0;
+
+			}
+			#ad {
+				width: 350px;
+				height: 300px;
+				padding: 0;
+				margin: 10px;
+				border: 1px solid black;
+			}
+		</style>
+		<script type="text/javascript">
+			$.urlParam = function(name){
+			    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+			    if (results==null){
+			       return null;
+			    }
+			    else{
+			       return decodeURI(results[1]) || 0;
+			    }
+			}
+
+			function err(message) {
+				$("#ad").append("<h2>ERROR: " + message + "</h2>");	
+			}
+
+			$(document).ready(function() {
+				var tagId = $.urlParam("tagId");
+				if (!tagId) {
+					err("no tagId");
+				}
+				var iframeType = $.urlParam("if");
+				if (!iframeType || !['no', 'friendly', 'safe'].indexOf(iframeType) < 0) {
+					err("no if parameter or wrong if parameter");
+				}
+				if (iframeType == "no") {
+					$("#ad").html("<script src=\"https://adtag.padsquad.com/AdOps_GetIntent/headliner.js?pid=11823453\" />");		
+				} else if (iframeType == "friendly") {
+					err('No support for friendly iframe so far');
+				} else if (iframeType == "safe") {
+					var fullURL = $(location).attr('href');
+					var url = fullURL.substring(0, fullURL.indexOf("?")).replace("getintent.com", "adhigh.net").replace("page.html", "iframe.html") + "?tagId=" + tagId;
+					$("#ad").html("<iframe class='adFrame' src='" + url +"''>");		
+				}
+			})
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="jumbotron text-center">
+	  			<h1>Demo Mobile Page for PadSquad</h1>
+	  			<p>Headliner format</p> 
+			</div>
+			<div class="row">
+				<div class="col-2-2">
+					<div>
+						This is the house that Jack built.<br />
+						This is the malt that lay in the house that Jack built.<br />
+						This is the rat that ate the malt<br />
+						That lay in the house that Jack built.
+					</div>
+					<h5>Sponsored Content</h5>
+					<div class="ad" id="ad">
+<!-- 						<script src="https://adtag.padsquad.com/AdOps_GetIntent/headliner.js?pid=11823453"></script>
+ -->					</div>
+
+					<div>	
+						This is the cat that killed the rat<br />
+						That ate the malt that lay in the house that Jack built.				
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

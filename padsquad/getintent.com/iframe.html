@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+		  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+		<style type="text/css">
+			body {
+				margin: 0;
+				padding: 0;
+				border: 0;
+			}
+		</style>
+		<script type="text/javascript">
+			$.urlParam = function(name){
+			    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+			    if (results==null){
+			       return null;
+			    }
+			    else{
+			       return decodeURI(results[1]) || 0;
+			    }
+			}
+
+			function err(message) {
+				$("#body").append("<h2>ERROR: " + message + "</h2>");	
+			}
+
+			$(document).ready(function() {
+				var tagId = $.urlParam("tagId");
+				if (!tagId) {
+					err("no tagId");
+				} else {
+					$("#body").html("<script src=\"https://adtag.padsquad.com/AdOps_GetIntent/headliner.js?pid=11823453\" />");		
+				}
+			});
+		</script>
+	</head>
+	<body id="body">
+
+	</body>
+</html>
