@@ -24,7 +24,7 @@
 			}
 		</style>
 		<script type="text/javascript">
-			$.urlParam = function(name){
+			function urlParam(name){
 			    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
 			    if (results==null){
 			       return null;
@@ -35,36 +35,9 @@
 			}
 
 			function err(message) {
-				$("#ad").append("<h2>ERROR: " + message + "</h2>");	
+				document.write("<h2>ERROR: " + message + "</h2>");	
 			}
 
-			$(document).ready(function() {
-				var tagId = $.urlParam("tagId");
-				if (!tagId) {
-					err("no tagId");
-					return;
-				}
-				var tagType = $.urlParam("tagType");
-				if (!tagId) {
-					err("no tagType");
-					return;
-				}
-				var iframeType = $.urlParam("if");
-				if (!iframeType || !['no', 'friendly', 'safe'].indexOf(iframeType) < 0) {
-					err("no if parameter or wrong if parameter");
-				}
-				if (iframeType == "no") {
-					// $("#ad").get(0).innerHTML ="<script src=\"https://adtag.padsquad.com/AdOps_GetIntent/" + tagType + ".js?pid=11823453\" />";		
-					$("#ad").html("<script src=\"https://adtag.padsquad.com/AdOps_GetIntent/" + tagType + ".js?pid=11823453\" />");		
-
-				} else if (iframeType == "friendly") {
-					err('No support for friendly iframe so far');
-				} else if (iframeType == "safe") {
-					var fullURL = $(location).attr('href');
-					var url = fullURL.substring(0, fullURL.indexOf("?")).replace("getintent.com", "adhigh.net").replace("page.html", "iframe.html") + "?tagId=" + tagId;
-					$("#ad").html("<iframe class='adFrame' src='" + url +"''>");		
-				}
-			})
 		</script>
 	</head>
 	<body>
@@ -83,8 +56,36 @@
 					</div>
 					<h5>Sponsored Content</h5>
 					<div class="ad" id="ad">
-<!-- 						<script src="https://adtag.padsquad.com/AdOps_GetIntent/headliner.js?pid=11823453"></script>
- -->					</div>
+						<script type="text/javascript">
+						(function() {
+							var tagId = urlParam("tagId");
+							if (!tagId) {
+								err("no tagId");
+								return;
+							}
+							var tagType = urlParam("tagType");
+							if (!tagType) {
+								err("no tagType");
+								return;
+							}
+							var iframeType = urlParam("if");
+							if (!iframeType || !['no', 'friendly', 'safe'].indexOf(iframeType) < 0) {
+								err("no if parameter or wrong if parameter");
+							}
+							if (iframeType == "no") {
+								document.write("<script src=\"https://adtag.padsquad.com/AdOps_GetIntent/" + tagType + ".js?pid=" + tagId + "\" />");	
+							} else if (iframeType == "friendly") {
+								var fullURL = $(location).attr('href');
+								var url = fullURL.substring(0, fullURL.indexOf("?")).replace("page.html", "iframe.html") + "?tagId=" + tagId + "&tagType=" + tagType;
+								document.write("<iframe class='adFrame' src='" + url +"''>");		
+							} else if (iframeType == "safe") {
+								var fullURL = $(location).attr('href');
+								var url = fullURL.substring(0, fullURL.indexOf("?")).replace("getintent.com", "adhigh.net").replace("page.html", "iframe.html") + "?tagId=" + tagId + "&tagType=" + tagType;
+								document.write("<iframe class='adFrame' src='" + url +"''>");		
+							}
+						})();							
+						</script>
+ 					</div>
 
 					<div>	
 						This is the cat that killed the rat<br />
